@@ -703,20 +703,20 @@ export default function SifatPortfolio() {
                 production-grade web applications. Currently open to work and
                 want to shipping real products that real people use every day.
               </p>
-              <div className="flex items-center gap-3 shrink-0">
-                <a
-                  href="#projects"
-                  className="yellow-btn mono-font text-xs tracking-[0.15em] uppercase border border-[#f5e642] text-[#f5e642] px-6 py-3"
-                >
-                  <span>See Work</span>
-                </a>
-                <a
-                  href="#contact"
-                  className="ghost-btn mono-font text-xs tracking-[0.15em] uppercase border border-[#f0ece0]/15 text-[#f0ece0]/35 px-5 py-3"
-                >
-                  <span>Hire Me</span>
-                </a>
-              </div>
+             <div className="flex items-center gap-3 shrink-0">                
+                  <a href="#projects"
+                    className="yellow-btn mono-font text-xs tracking-[0.15em] uppercase border border-[#f5e642] text-[#f5e642] px-6 py-3"
+                  >
+                    <span>See Work</span>
+                  </a>
+                  
+                  <a
+                    href="/public/MohaiminulIslamFullStackDeveloperCV.pdf"
+                    download="SifatIslamCV.pdf"
+                    className="ghost-btn mono-font text-xs tracking-[0.15em] uppercase border border-[#f0ece0]/15 text-[#f0ece0]/35 px-5 py-3">
+                    <span>Download CV</span>
+                  </a>
+                </div>
             </div>
           </div>
 
