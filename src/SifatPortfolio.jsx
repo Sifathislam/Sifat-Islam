@@ -711,8 +711,7 @@ export default function SifatPortfolio() {
                   </a>
                   
                   <a
-                    href="/public/MohaiminulIslamFullStackDeveloperCV.pdf"
-                    download="SifatIslamCV.pdf"
+                    href="https://drive.google.com/file/d/1RI4jgpxnTfahdhlHeMTLYG8MILdiBzLh/view?usp=sharing" target="_blank"
                     className="ghost-btn mono-font text-xs tracking-[0.15em] uppercase border border-[#f0ece0]/15 text-[#f0ece0]/35 px-5 py-3">
                     <span>Download CV</span>
                   </a>
