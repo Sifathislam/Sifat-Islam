@@ -310,6 +310,7 @@ export default function SifatPortfolio() {
           from_name: formData.name,
           from_email: formData.email,
           message: formData.message,
+          reply_to: formData.email,
         },
         "vf18QyRIMR8iw2Au9", // paste your Public Key
       )
@@ -514,6 +515,23 @@ export default function SifatPortfolio() {
           0%, 50%, 100% { opacity: 1; }
           25%, 75% { opacity: 0; }
         }
+
+        .skill-card {
+          border:1px solid rgba(240,236,224,0.06);
+          transition:all 0.35s cubic-bezier(0.16,1,0.3,1);
+          position:relative; overflow:hidden;
+        }
+        .skill-card::before {
+          content:''; position:absolute; inset:0;
+          background:linear-gradient(135deg,rgba(245,230,66,0.025) 0%,transparent 60%);
+          opacity:0; transition:opacity 0.35s; pointer-events:none;
+        }
+        .skill-card:hover {
+          border-color:rgba(245,230,66,0.22);
+          transform:translateY(-3px);
+          box-shadow:0 12px 40px rgba(245,230,66,0.04);
+        }
+        .skill-card:hover::before { opacity:1; }
       `}</style>
 
       <GrainOverlay />
@@ -604,10 +622,35 @@ export default function SifatPortfolio() {
         className="min-h-screen flex flex-col justify-between pt-16 relative overflow-hidden group/hero"
       >
         <div className="absolute inset-0 z-0">
+
+          {/* ── MOBILE photo layout (hidden on md+) ── */}
           <img
             src={heroPhoto}
             alt=""
-            className="absolute h-full w-auto max-w-[65%] object-cover object-top transition-all duration-700 ease-out group-hover/hero:brightness-125"
+            className="md:hidden absolute top-16 right-0 h-[60vh] w-auto object-cover object-top"
+          />
+          {/* bottom-to-top dark fade so text area stays readable */}
+          <div
+            className="md:hidden absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to top, #0a0a0a 50%, rgba(10,10,10,0.72) 72%, rgba(10,10,10,0.08) 100%)",
+            }}
+          />
+          {/* left-side fade so the name text is legible */}
+          <div
+            className="md:hidden absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to right, #0a0a0a 22%, rgba(10,10,10,0.55) 52%, transparent 100%)",
+            }}
+          />
+
+          {/* ── DESKTOP photo layout — exactly as before (hidden on mobile) ── */}
+          <img
+            src={heroPhoto}
+            alt=""
+            className="hidden md:block absolute h-full w-auto max-w-[65%] object-cover object-top transition-all duration-700 ease-out group-hover/hero:brightness-125"
             style={{
               objectPosition: "top right",
               top: "70px",
@@ -616,12 +659,14 @@ export default function SifatPortfolio() {
             }}
           />
           <div
-            className="absolute inset-0"
+            className="hidden md:block absolute inset-0"
             style={{
               background:
                 "linear-gradient(to right, #0a0a0a 40%, #0a0a0a 55%, rgba(10,10,10,0.6) 72%, rgba(10,10,10,0.1) 100%)",
             }}
           />
+
+          {/* shared bottom fade (both mobile + desktop) */}
           <div
             className="absolute bottom-0 left-0 right-0 h-48"
             style={{
@@ -668,7 +713,7 @@ export default function SifatPortfolio() {
                 <span className="mono-font text-[14px] tracking-[0.25em] text-[#f0ece0]/70 uppercase whitespace-nowrap">
                   A
                 </span>
-                <span className="rotating-word display-font text-[33px] tracking-[0.1em] text-[#f5e642] overflow-hidden inline-block">
+                <span className="rotating-word display-font text-[clamp(18px,6vw,33px)] tracking-[0.1em] text-[#f5e642] overflow-hidden inline-block">
                   <span className="inner" id="rotWord">
                     FULL STACK DEVELOPER
                   </span>
@@ -736,7 +781,7 @@ export default function SifatPortfolio() {
             ))}
           </div>
 
-          <div className="flex lg:hidden gap-8 hero-line hl6 mt-6">
+          <div className="flex lg:hidden gap-5 sm:gap-8 hero-line hl6 mt-6">
             {[
               ["3+", "Years\nExperience"],
               ["20+", "Worked\nProjects"],
@@ -931,48 +976,38 @@ export default function SifatPortfolio() {
                 </div>
               </div>
               {/* Problem Solving */}
-              <div className="mt-6">
-                <div className="flex items-center justify-between px-8 py-5 border-b border-[#fdfdfd2b]/8">
+              <div className="mt-6 border border-[#f5e642]/8">
+                <div className="flex items-center justify-between px-5 py-4 border-b border-[#f5e642]/8 flex-wrap gap-2">
                   <div className="flex items-center gap-3">
-                    <span className="display-font text-lg text-[#f5e642]/50">
-                      ◈
-                    </span>
+                    <span className="display-font text-lg text-[#f5e642]/50">◈</span>
                     <span className="mono-font text-[10px] tracking-[0.3em] uppercase text-[#f5e642]/50">
                       Problem Solving
                     </span>
                   </div>
-                  <span className="mono-font text-[10px] tracking-[0.2em] text-[#f5e642]/50">
-                    250+ Problems Solved
+                  <span className="mono-font text-[10px] tracking-[0.2em] text-[#f5e642]/50 shrink-0">
+                    250+ Solved
                   </span>
                 </div>
-                <div
-                  className="grid"
-                  style={{ gridTemplateColumns: "1fr 1px 1fr 1px 1fr" }}
-                >
-                 {[
+                <div className="grid grid-cols-1 sm:grid-cols-3">
+                  {[
                     { platform: "CodeChef", handle: "@sifathislam790", href: "https://www.codechef.com/users/sifathislam790" },
                     { platform: "Codeforces", handle: "@sifathislam790", href: "https://codeforces.com/profile/sifathislam790" },
                     { platform: "LeetCode", handle: "@sifathislam790", href: "https://leetcode.com/u/sifathislam790/" },
-                  ].map(({ platform, handle, href }, i, arr) => (
-                    <>
-                      <a
-                        key={platform}
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex flex-col gap-1 px-8 py-6 group cursor-pointer hover:bg-[#f5e642]/[0.03] transition-colors"
-                      >
-                        <span className="mono-font text-[13px] tracking-[0.04em] text-[#f5e642]/60 group-hover:text-[#f5e642] transition-colors">
-                          {platform}
-                        </span>
-                        <span className="mono-font text-[10px] tracking-[0.1em] text-[#f5e642]/25">
-                          {handle}
-                        </span>
-                      </a>
-                      {i < arr.length - 1 && (
-                        <div key={platform + "-div"} className="bg-[#f5e642]/8" />
-                      )}
-                    </>
+                  ].map(({ platform, handle, href }, i) => (
+                    <a
+                      key={platform}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex flex-col gap-1 px-5 py-5 group hover:bg-[#f5e642]/[0.03] transition-colors${i > 0 ? " border-t sm:border-t-0 sm:border-l border-[#f5e642]/8" : ""}`}
+                    >
+                      <span className="mono-font text-[13px] tracking-[0.04em] text-[#f5e642]/60 group-hover:text-[#f5e642] transition-colors">
+                        {platform}
+                      </span>
+                      <span className="mono-font text-[10px] tracking-[0.1em] text-[#f5e642]/25">
+                        {handle}
+                      </span>
+                    </a>
                   ))}
                 </div>
               </div>
@@ -986,161 +1021,96 @@ export default function SifatPortfolio() {
         <Section id="skills">
           <SectionLabel num="02" title="Skills" />
 
-          {/* Newspaper columns */}
-          <div
-            className="grid gap-0"
-            style={{ gridTemplateColumns: "1fr 1px 1fr 1px 1fr" }}
-          >
-            {/* Frontend */}
-            <div className="pr-8 md:pr-12">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#f0ece0]/8">
-                <span className="display-font text-lg text-[#f5e642]">▲</span>
-                <span className="mono-font text-[10px] tracking-[0.25em] uppercase text-[#f0ece0]/30">
-                  Frontend
-                </span>
-              </div>
-              {[
-                "React.js",
-                "JavaScript",
-                "Tailwind CSS",
-                "Bootstrap 5",
-                "HTML / CSS",
-              ].map((skill) => (
-                <div
-                  key={skill}
-                  className="mono-font text-[13px] tracking-[0.04em] text-[#f0ece0]/60 py-[10px] border-b border-[#f0ece0]/[0.04] flex items-center gap-3 hover:text-[#ada554] transition-colors group cursor-default"
-                >
-                  <span className="w-[3px] h-[3px] rounded-full bg-[#f5e642]/40 shrink-0 group-hover:bg-[#f5e642] transition-colors" />
-                  {skill}
+          {/* Primary Skill Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              {
+                icon: "▲",
+                label: "Frontend",
+                skills: ["React.js", "JavaScript", "Tailwind CSS", "Bootstrap 5", "HTML / CSS"],
+              },
+              {
+                icon: "◆",
+                label: "Backend",
+                skills: ["Python", "Django", "FastAPI", "REST APIs", "LangChain"],
+              },
+              {
+                icon: "●",
+                label: "Tools & DB",
+                skills: ["PostgreSQL", "Docker / CI-CD", "AWS Lambda", "DynamoDB", "MongoDB"],
+              },
+            ].map(({ icon, label, skills }) => (
+              <div key={label} className="skill-card p-7 group">
+                <div className="flex items-center gap-3 mb-6 pb-5 border-b border-[#f0ece0]/8">
+                  <span className="display-font text-2xl text-[#f5e642] leading-none">{icon}</span>
+                  <span className="mono-font text-[10px] tracking-[0.3em] uppercase text-[#f0ece0]/40">{label}</span>
                 </div>
-              ))}
-            </div>
-
-            {/* Divider */}
-            <div className="bg-[#f0ece0]/6" />
-
-            {/* Backend */}
-            <div className="px-8 md:px-12">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#f0ece0]/8">
-                <span className="display-font text-lg text-[#f5e642]">◆</span>
-                <span className="mono-font text-[10px] tracking-[0.25em] uppercase text-[#f0ece0]/30">
-                  Backend
-                </span>
-              </div>
-              {["Python", "Django", "FastAPI", "REST APIs", "LangChain"].map(
-                (skill) => (
+                {skills.map((skill, idx) => (
                   <div
                     key={skill}
-                    className="mono-font text-[13px] tracking-[0.04em] text-[#f0ece0]/60 py-[10px] border-b border-[#f0ece0]/[0.04] flex items-center gap-3 hover:text-[#ada554] transition-colors group cursor-default"
+                    className={`mono-font text-[13px] tracking-[0.04em] text-[#f0ece0]/55 py-[11px] flex items-center gap-3 transition-colors group-hover:text-[#f0ece0]/75 cursor-default${idx < skills.length - 1 ? " border-b border-[#f0ece0]/[0.04]" : ""}`}
                   >
                     <span className="w-[3px] h-[3px] rounded-full bg-[#f5e642]/40 shrink-0 group-hover:bg-[#f5e642] transition-colors" />
                     {skill}
                   </div>
-                ),
-              )}
-            </div>
-
-            {/* Divider */}
-            <div className="bg-[#f0ece0]/6" />
-
-            {/* Tools & DB */}
-            <div className="pl-8 md:pl-12">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#f0ece0]/8">
-                <span className="display-font text-lg text-[#f5e642]">●</span>
-                <span className="mono-font text-[10px] tracking-[0.25em] uppercase text-[#f0ece0]/30">
-                  Tools & DB
-                </span>
+                ))}
               </div>
+            ))}
+          </div>
+
+          {/* Also Proficient In */}
+          <div className="mt-4 border border-[#f0ece0]/6">
+            <div className="px-6 py-4 border-b border-[#f0ece0]/6 flex items-center gap-3">
+              <span className="display-font text-base text-[#f0ece0]/20">◇</span>
+              <span className="mono-font text-[10px] tracking-[0.3em] uppercase text-[#f0ece0]/25">
+                Also Proficient In
+              </span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3">
               {[
-                "PostgreSQL",
-                "Docker / CI-CD",
-                "AWS Lambda",
-                "DynamoDB",
-                "MongoDB",
-              ].map((skill) => (
+                { label: "Languages", skills: ["C", "C++", "MySQL"] },
+                { label: "Libraries", skills: ["SQLAlchemy", "Redis / Celery", "Git"] },
+                { label: "Workflow",  skills: ["Jira", "Asana", "Bitbucket"] },
+              ].map(({ label, skills }, idx) => (
                 <div
-                  key={skill}
-                  className="mono-font text-[13px] tracking-[0.04em] text-[#f0ece0]/60 py-[10px] border-b border-[#f0ece0]/[0.04] flex items-center gap-3 hover:text-[#ada554] transition-colors group cursor-default"
+                  key={label}
+                  className={`p-6${idx > 0 ? " border-t md:border-t-0 md:border-l border-[#f0ece0]/6" : ""}`}
                 >
-                  <span className="w-[3px] h-[3px] rounded-full bg-[#f5e642]/40 shrink-0 group-hover:bg-[#f5e642] transition-colors" />
-                  {skill}
+                  <div className="mono-font text-[10px] tracking-[0.2em] uppercase text-[#f0ece0]/20 mb-3">
+                    {label}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="about-tag mono-font text-[11px] tracking-wider text-[#f0ece0]/40 px-3 py-1.5"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-          {/* Also Proficient In */}
-          <div
-            className="mt-6"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1px 1fr 1px 1fr",
-              gap: 0,
-            }}
-          >
-            {/* Col 1 */}
-            <div className="pr-8 md:pr-12">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#f0ece0]/8">
-                <span className="display-font text-lg text-[#f0ece0]/20">
-                  ◇
-                </span>
-                <span className="mono-font text-[10px] tracking-[0.25em] uppercase text-[#f0ece0]/25">
-                  Languages
-                </span>
-              </div>
-              {["C", "C++", "MySQL"].map((skill) => (
-                <div
-                  key={skill}
-                  className="mono-font text-[13px] tracking-[0.04em] text-[#f0ece0]/60 py-[10px] border-b border-[#f0ece0]/[0.04] flex items-center gap-3 hover:text-[#ada554] transition-colors group cursor-default"
+
+          {/* Tech Ticker */}
+          <div className="mt-8 overflow-hidden border-t border-[#f0ece0]/6 pt-6">
+            <div className="flex marquee-track">
+              {[
+                "Python", "Django", "FastAPI", "React.js", "JavaScript",
+                "PostgreSQL", "Docker", "Redis", "Celery", "AWS", "CI/CD",
+                "LangChain", "REST API", "Bootstrap", "Tailwind CSS", "Git",
+                "Python", "Django", "FastAPI", "React.js", "JavaScript",
+                "PostgreSQL", "Docker", "Redis", "Celery", "AWS", "CI/CD",
+                "LangChain", "REST API", "Bootstrap", "Tailwind CSS", "Git",
+              ].map((tech, i) => (
+                <span
+                  key={i}
+                  className="mono-font text-[11px] tracking-[0.25em] text-[#f0ece0]/20 uppercase whitespace-nowrap mr-8"
                 >
-                  <span className="w-[3px] h-[3px] rounded-full bg-[#f5e642]/40 shrink-0 group-hover:bg-[#f5e642] transition-colors" />
-                  {skill}
-                </div>
-              ))}
-            </div>
-
-            <div className="bg-[#f0ece0]/6" />
-
-            {/* Col 2 */}
-            <div className="px-8 md:px-12">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#f0ece0]/8">
-                <span className="display-font text-lg text-[#f0ece0]/20">
-                  ◇
+                  {tech}&nbsp;&nbsp;<span className="text-[#f5e642]/20">◆</span>&nbsp;&nbsp;
                 </span>
-                <span className="mono-font text-[10px] tracking-[0.25em] uppercase text-[#f0ece0]/25">
-                  Libraries
-                </span>
-              </div>
-              {["SQLAlchemy", "Redis / Celery", "Git"].map((skill) => (
-                <div
-                  key={skill}
-                  className="mono-font text-[13px] tracking-[0.04em] text-[#f0ece0]/60 py-[10px] border-b border-[#f0ece0]/[0.04] flex items-center gap-3 hover:text-[#ada554] transition-colors group cursor-default"
-                >
-                  <span className="w-[3px] h-[3px] rounded-full bg-[#f5e642]/40 shrink-0 group-hover:bg-[#f5e642] transition-colors" />
-                  {skill}
-                </div>
-              ))}
-            </div>
-
-            <div className="bg-[#f0ece0]/6" />
-
-            {/* Col 3 */}
-            <div className="pl-8 md:pl-12">
-              <div className="flex items-center gap-3 mb-6 pb-4 border-b border-[#f0ece0]/8">
-                <span className="display-font text-lg text-[#f0ece0]/20">
-                  ◇
-                </span>
-                <span className="mono-font text-[10px] tracking-[0.25em] uppercase text-[#f0ece0]/25">
-                  Workflow
-                </span>
-              </div>
-              {["Jira", "Asana", "Bitbucket"].map((skill) => (
-                <div
-                  key={skill}
-                  className="mono-font text-[13px] tracking-[0.04em] text-[#f0ece0]/60 py-[10px] border-b border-[#f0ece0]/[0.04] flex items-center gap-3 hover:text-[#ada554] transition-colors group cursor-default"
-                >
-                  <span className="w-[3px] h-[3px] rounded-full bg-[#f5e642]/40 shrink-0 group-hover:bg-[#f5e642] transition-colors" />
-                  {skill}
-                </div>
               ))}
             </div>
           </div>
@@ -1162,15 +1132,15 @@ export default function SifatPortfolio() {
                     <button
                       key={p.num}
                       onClick={() => setModalProject(p)}
-                      className={`project-card text-left p-8 relative ${p.featured ? "md:col-span-2" : ""}`}
+                      className={`project-card text-left p-5 md:p-8 relative ${p.featured ? "md:col-span-2" : ""}`}
                     >
                       <div
                         className={
-                          p.featured ? "grid grid-cols-[auto_1fr] gap-8" : ""
+                          p.featured ? "grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5 md:gap-8" : ""
                         }
                       >
                         {p.featured && (
-                          <span className="project-num display-font text-[80px] text-[#f0ece0]/08 leading-none">
+                          <span className="project-num display-font text-[80px] text-[#f0ece0]/08 leading-none hidden md:block">
                             {p.num}
                           </span>
                         )}
@@ -1267,7 +1237,7 @@ export default function SifatPortfolio() {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="border-b border-[#f0ece0]/08 p-8 flex justify-between items-start gap-4">
+            <div className="border-b border-[#f0ece0]/08 p-5 sm:p-8 flex justify-between items-start gap-3 sm:gap-4">
               <div className="flex items-start gap-5 flex-1 min-w-0">
                 <span className="display-font text-[64px] text-[#f5e642]/15 leading-none shrink-0">
                   {modalProject.num}
@@ -1297,7 +1267,7 @@ export default function SifatPortfolio() {
             </div>
 
             {/* Modal Body */}
-            <div className="p-8">
+            <div className="p-5 sm:p-8">
               <p className="mono-font text-xs text-[#f0ece0]/50 leading-relaxed mb-8">
                 {modalProject.desc}
               </p>
@@ -1438,13 +1408,13 @@ export default function SifatPortfolio() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 group border border-[#f0ece0]/6 p-4 hover:border-[#f5e642]/20 transition-colors"
+                    className="flex items-center gap-3 group border border-[#f0ece0]/6 p-4 hover:border-[#f5e642]/20 transition-colors overflow-hidden"
                   >
-                    <span className="mono-font text-[10px] tracking-[0.2em] uppercase text-[#f0ece0]/25 w-16 shrink-0">
+                    <span className="mono-font text-[10px] tracking-[0.2em] uppercase text-[#f0ece0]/25 w-14 shrink-0">
                       {label}
                     </span>
-                    <div className="h-px flex-1 bg-[#f0ece0]/8" />
-                    <span className="mono-font text-xs text-[#f0ece0]/40 group-hover:text-[#f5e642] transition-colors">
+                    <div className="h-px flex-1 bg-[#f0ece0]/8 shrink-0 hidden sm:block" />
+                    <span className="mono-font text-xs text-[#f0ece0]/40 group-hover:text-[#f5e642] transition-colors truncate min-w-0">
                       {value}
                     </span>
                   </a>
